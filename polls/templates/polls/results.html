@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        
+        {% load static %}
+        <meta charset="utf-8">
+        <title>Poll Results</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <h1>{{ question.question_text }}</h1>
+        <ul>
+        {% for choice in question.choice_set.all %}
+            <li>{{ choice.choice_text }} --- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+        {% endfor %}
+        </ul>
+
+        <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+        <br><a href="{% url 'polls:index' %}">Polls index</a>
+
+    </body>
+    
+</html>
+

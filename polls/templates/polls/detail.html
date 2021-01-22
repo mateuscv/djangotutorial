@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <title>Poll Details</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <h1>{{ question.question_text }}</h1>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+        <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+        {% for choice in question.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" 
+            value="{{ choice.id }}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+        {% endfor %}
+        <br><input type="submit" value="Vote">
+        </form>
+        <br><a href="{% url 'polls:index' %}">Polls index</a>
+
+    </body>
+    
+</html>
+
